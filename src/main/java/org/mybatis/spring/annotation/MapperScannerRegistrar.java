@@ -25,6 +25,7 @@ import org.mybatis.spring.mapper.ClassPathMapperScanner;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;
@@ -37,6 +38,9 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * {@link MapperScan} 的注册器。负责将扫描到的 Mapper 接口，注册成 beanClass 为 {@link MapperFactoryBean} 的
+ * {@link AbstractBeanDefinition}
+ *
  * A {@link ImportBeanDefinitionRegistrar} to allow annotation configuration of MyBatis mapper scanning. Using
  * an @Enable annotation allows beans to be registered via @Component configuration, whereas implementing
  * {@code BeanDefinitionRegistryPostProcessor} will work for XML configuration.
@@ -53,7 +57,7 @@ public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @deprecated Since 2.0.2, this method not used never.
    */
   @Override
@@ -136,7 +140,7 @@ public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
 
   /**
    * A {@link MapperScannerRegistrar} for {@link MapperScans}.
-   * 
+   *
    * @since 2.0.0
    */
   static class RepeatingRegistrar extends MapperScannerRegistrar {

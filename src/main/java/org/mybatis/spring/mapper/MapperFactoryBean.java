@@ -24,6 +24,10 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
+ * Mapper 接口的 BeanDefinition 对应的类。
+ *
+ * 通过注解去注入 Mapper。实际是调用了 {@link org.apache.ibatis.session.SqlSession#getMapper(Class)}
+ *
  * BeanFactory that enables injection of MyBatis mapper interfaces. It can be set up with a SqlSessionFactory or a
  * pre-configured SqlSessionTemplate.
  * <p>

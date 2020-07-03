@@ -33,7 +33,11 @@ import org.w3c.dom.Element;
 
 /**
  * A {#code BeanDefinitionParser} that handles the element scan of the MyBatis. namespace
- * 
+ *
+ * 实现逻辑跟 {@link org.mybatis.spring.annotation.MapperScan} 类似。
+ *
+ * 都是先将各种属性变成 {@link MapperScannerConfigurer}
+ *
  * @author Lishu Luo
  * @author Eduardo Macarron
  *
@@ -56,7 +60,7 @@ public class MapperScannerBeanDefinitionParser extends AbstractBeanDefinitionPar
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @since 2.0.2
    */
   @Override
@@ -107,7 +111,7 @@ public class MapperScannerBeanDefinitionParser extends AbstractBeanDefinitionPar
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @since 2.0.2
    */
   @Override

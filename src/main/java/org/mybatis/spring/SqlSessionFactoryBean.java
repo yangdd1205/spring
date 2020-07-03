@@ -58,7 +58,9 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.type.ClassMetadata;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
+import org.springframework.transaction.jta.JtaTransactionManager;
 import org.springframework.util.ClassUtils;
 
 import static org.springframework.util.Assert.notNull;
@@ -68,6 +70,10 @@ import static org.springframework.util.StringUtils.hasLength;
 import static org.springframework.util.StringUtils.tokenizeToStringArray;
 
 /**
+ * 创建 Mybatis {@link SqlSessionFactory},并且在 Spring 应用上下文中是共享的。通过依赖注入到 DAO。
+ *
+ * 通过 {@link DataSourceTransactionManager} 或者 {@link JtaTransactionManager} 进行事务管理。
+ *
  * {@code FactoryBean} that creates a MyBatis {@code SqlSessionFactory}. This is the usual way to set up a shared
  * MyBatis {@code SqlSessionFactory} in a Spring application context; the SqlSessionFactory can then be passed to
  * MyBatis-based DAOs via dependency injection.
@@ -463,6 +469,8 @@ public class SqlSessionFactoryBean
   }
 
   /**
+   * 初始化方法
+   *
    * {@inheritDoc}
    */
   @Override
@@ -607,14 +615,17 @@ public class SqlSessionFactoryBean
   }
 
   /**
+   * 返回 SqlSessionFactory。单例
    * {@inheritDoc}
    */
   @Override
   public SqlSessionFactory getObject() throws Exception {
+    // 如果还没创建 SqlSessionFactory
     if (this.sqlSessionFactory == null) {
+      // 调用初始化方法
       afterPropertiesSet();
     }
-
+    // 返回对象
     return this.sqlSessionFactory;
   }
 
