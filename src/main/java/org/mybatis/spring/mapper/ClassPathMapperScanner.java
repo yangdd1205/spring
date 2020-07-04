@@ -36,6 +36,8 @@ import java.util.Arrays;
 import java.util.Set;
 
 /**
+ * 通过扫描 basePackage 注册 Mapper
+ *
  * A {@link ClassPathBeanDefinitionScanner} that registers Mappers by {@code basePackage}, {@code annotationClass}, or
  * {@code markerInterface}. If an {@code annotationClass} and/or {@code markerInterface} is specified, only the
  * specified types will be searched (searching for all interfaces will be disabled).
@@ -45,7 +47,7 @@ import java.util.Set;
  *
  * @author Hunter Presnall
  * @author Eduardo Macarron
- * 
+ *
  * @see MapperFactoryBean
  * @since 1.2.0
  */
@@ -137,6 +139,8 @@ public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
   }
 
   /**
+   * 筛选扫描的资源
+   *
    * Configures parent scanner to search for the right interfaces. It can search for all interfaces or just for those
    * that extends a markerInterface or/and those annotated with the annotationClass
    */
@@ -241,6 +245,10 @@ public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
   }
 
   /**
+   * 根据 beanDefinition。 再次筛选。
+   *
+   * 是否是独立的接口
+   *
    * {@inheritDoc}
    */
   @Override
